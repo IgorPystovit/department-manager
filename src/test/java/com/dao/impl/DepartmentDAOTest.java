@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import com.JPATest;
 import com.entities.Department;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

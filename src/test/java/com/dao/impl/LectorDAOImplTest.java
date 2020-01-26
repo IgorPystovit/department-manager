@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import com.JPATest;
 import com.entities.Lector;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -28,10 +29,7 @@ public class LectorDAOImplTest extends JPATest {
         Optional<Lector> optionalLector = lectorDAO.findById(lector.getId());
 
         assertTrue(optionalLector.isPresent());
-        assertEquals(lector.getDepartments(), optionalLector.get().getDepartments());
-        assertEquals(lector.getDegree(), optionalLector.get().getDegree());
-        assertEquals(lector.getName(), optionalLector.get().getName());
-        assertEquals(lector.getSalary(), optionalLector.get().getSalary());
+        assertEquals(lector, optionalLector.get());
     }
 
     @Test

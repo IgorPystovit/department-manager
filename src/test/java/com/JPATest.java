@@ -1,7 +1,9 @@
-package com.dao.impl;
+package com;
 
 import com.dao.DepartmentDAO;
 import com.dao.LectorDAO;
+import com.dao.impl.DepartmentDAOImpl;
+import com.dao.impl.LectorDAOImpl;
 import com.entities.Degree;
 import com.entities.Department;
 import com.entities.Lector;
