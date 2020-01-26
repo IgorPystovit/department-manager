@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class LectorServiceImplTest {
@@ -37,7 +36,7 @@ public class LectorServiceImplTest {
     @Test
     public void deleteNonExistentLector_test() {
         when(lectorDAO.findById(anyInt())).thenThrow(new NoSuchElementException());
-        lectorService.deleteLector(EntityUtils.getLector());
+        assertThrows(NoSuchElementException.class, () -> lectorService.deleteLector(EntityUtils.getLector()));
         verify(lectorDAO, times(0)).delete(any(Lector.class));
     }
 
@@ -46,14 +45,14 @@ public class LectorServiceImplTest {
         Lector lector = EntityUtils.getLector();
         when(lectorDAO.findById(lector.getId())).thenReturn(Optional.of(new Lector()));
         lectorService.updateLector(lector);
-        verify(lectorDAO).save(lector);
+        verify(lectorDAO).update(lector);
     }
 
     @Test
     public void updateNonExistentLector_test() {
         when(lectorDAO.findById(anyInt())).thenThrow(new NoSuchElementException());
-        lectorService.updateLector(EntityUtils.getLector());
-        verify(lectorDAO, times(0)).save(any(Lector.class));
+        assertThrows(NoSuchElementException.class, () -> lectorService.updateLector(EntityUtils.getLector()));
+        verify(lectorDAO, times(0)).update(any(Lector.class));
     }
 
     @Test

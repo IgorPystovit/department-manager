@@ -43,6 +43,14 @@ public class DepartmentDAOTest extends JPATest {
         assertTrue(departments.contains(savedDepartment));
     }
 
+    @Test
+    public void update_test() {
+        Department department = setUpTestDepartment();
+
+        department.setName("newName");
+
+        assertDoesNotThrow(() -> departmentDAO.update(department));
+    }
 
     @AfterEach
     public void tearDown() {

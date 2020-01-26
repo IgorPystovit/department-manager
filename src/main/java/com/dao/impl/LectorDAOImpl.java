@@ -45,6 +45,15 @@ public class LectorDAOImpl implements LectorDAO {
     }
 
     @Override
+    public void update(Lector lector) {
+        session.getTransaction().begin();
+
+        session.merge(lector);
+
+        session.getTransaction().commit();
+    }
+
+    @Override
     public void deleteAll() {
         session.getTransaction().begin();
 

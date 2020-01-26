@@ -47,6 +47,15 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     @Override
+    public void update(Department department) {
+        session.getTransaction().begin();
+
+        session.merge(department);
+
+        session.getTransaction().commit();
+    }
+
+    @Override
     public void deleteAll() {
         session.getTransaction().begin();
 

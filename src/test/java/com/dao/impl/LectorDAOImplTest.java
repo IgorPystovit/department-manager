@@ -41,6 +41,14 @@ public class LectorDAOImplTest extends JPATest {
         assertTrue(lectors.contains(lector));
     }
 
+    @Test
+    public void update_test() {
+        Lector savedLector = setUpTestLector();
+        savedLector.setSalary(savedLector.getSalary() + 3);
+        assertDoesNotThrow(() -> lectorDAO.update(savedLector));
+
+    }
+
     @AfterEach
     public void tearDown() {
         lectorDAO.deleteAll();

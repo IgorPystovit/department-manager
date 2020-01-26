@@ -1,6 +1,7 @@
 package com.entities;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString(exclude = "lectors")
+@Table(name = "Department")
 @Entity
 public class Department implements Serializable {
 
@@ -30,6 +32,7 @@ public class Department implements Serializable {
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(name = "department_lector",
             joinColumns = @JoinColumn(name = "department_id"),
             inverseJoinColumns = @JoinColumn(name = "lector_id"))

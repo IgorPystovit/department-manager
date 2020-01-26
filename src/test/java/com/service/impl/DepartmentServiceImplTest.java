@@ -12,8 +12,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class DepartmentServiceImplTest {
@@ -39,7 +38,7 @@ public class DepartmentServiceImplTest {
     @Test
     public void deleteNonExistentDepartment_test() {
         when(departmentDAO.findById(anyInt())).thenThrow(new NoSuchElementException());
-        departmentService.deleteDepartment(EntityUtils.getDepartment());
+        assertThrows(NoSuchElementException.class, () -> departmentService.deleteDepartment(EntityUtils.getDepartment()));
         verify(departmentDAO, times(0)).delete(any(Department.class));
     }
 
@@ -48,14 +47,14 @@ public class DepartmentServiceImplTest {
         Department department = EntityUtils.getDepartment();
         when(departmentDAO.findById(department.getId())).thenReturn(Optional.of(department));
         departmentService.updateDepartment(department);
-        verify(departmentDAO).save(department);
+        verify(departmentDAO).update(department);
     }
 
     @Test
     public void updateNonExistentDepartment_test() {
         when(departmentDAO.findById(anyInt())).thenThrow(new NoSuchElementException());
-        departmentService.updateDepartment(EntityUtils.getDepartment());
-        verify(departmentDAO, times(0)).save(any(Department.class));
+        assertThrows(NoSuchElementException.class, () -> departmentService.updateDepartment(EntityUtils.getDepartment()));
+        verify(departmentDAO, times(0)).update(any(Department.class));
     }
 
     @Test

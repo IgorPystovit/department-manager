@@ -28,6 +28,7 @@ public class LectorServiceImpl implements LectorService {
             lectorDAO.delete(deleteLector);
         } catch (NoSuchElementException e) {
             log.error("Attempt to delete non-existent Lector");
+            throw e;
         }
     }
 
@@ -35,9 +36,10 @@ public class LectorServiceImpl implements LectorService {
     public void updateLector(Lector newLector) {
         try {
             checkIfLectorExistsById(newLector.getId());
-            lectorDAO.save(newLector);
+            lectorDAO.update(newLector);
         } catch (NoSuchElementException e) {
             log.error("Attempt to update non-existent Lector");
+            throw e;
         }
     }
 
@@ -51,6 +53,6 @@ public class LectorServiceImpl implements LectorService {
     }
 
     private void checkIfLectorExistsById(Integer id) {
-        lectorDAO.findById(id).orElseThrow(NoSuchElementException::new);
+        lectorDAO.findById(id).orElseThrow(() -> new NoSuchElementException("No Lector entity with " + id + " present on DB"));
     }
 }

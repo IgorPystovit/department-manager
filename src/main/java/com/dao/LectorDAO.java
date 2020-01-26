@@ -10,9 +10,12 @@ public interface LectorDAO {
 
     void delete(Lector lector);
 
+    void update(Lector lector);
+
     Optional<Lector> findById(Integer id);
 
     List<Lector> findAll();
+
 
     void deleteAll();
 }

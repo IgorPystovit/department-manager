@@ -32,6 +32,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             departmentDAO.delete(deleteDepartment);
         } catch (NoSuchElementException e) {
             log.error("Attempt to delete non-existent Department");
+            throw e;
         }
     }
 
@@ -39,9 +40,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void updateDepartment(Department newDepartment) {
         try {
             checkIfDepartmentExistsById(newDepartment.getId());
-            departmentDAO.save(newDepartment);
+            departmentDAO.update(newDepartment);
         } catch (NoSuchElementException e) {
             log.warn("Attempt to update non-existent Department");
+            throw e;
         }
     }
 
@@ -56,7 +58,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentStatistic getDepartmentStatistic(Department department) {
-        ;
+
         Map<Degree, Integer> statisticMap = department
                 .getLectors()
                 .stream()
@@ -78,6 +80,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     private void checkIfDepartmentExistsById(Integer id) {
-        departmentDAO.findById(id).orElseThrow(NoSuchElementException::new);
+        departmentDAO.findById(id).orElseThrow(() -> new NoSuchElementException("No Department entity with " + id + " present on DB"));
     }
 }
