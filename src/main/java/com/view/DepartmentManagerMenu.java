@@ -26,8 +26,8 @@ public class DepartmentManagerMenu extends Menu {
     public Map<Integer, String> initializeItems() {
         Map<Integer, String> menuItems = new LinkedHashMap<>();
 
-        menuItems.put(1, "Get head of department");
-        menuItems.put(2, "Print all departments");
+        menuItems.put(1, "Print all departments");
+        menuItems.put(2, "Get head of department");
         menuItems.put(3, "Get department statistic");
         menuItems.put(4, "Get average salary");
         menuItems.put(5, "Get employee count");
@@ -53,8 +53,8 @@ public class DepartmentManagerMenu extends Menu {
         Consumer<Department> getEmployeeCount =
                 department -> log.info("{}", department.getLectors().size());
 
-        menuActions.put(1, () -> readDepartmentNameAndPerform(getHeadOfDepartment));
-        menuActions.put(2,
+        menuActions.put(2, () -> readDepartmentNameAndPerform(getHeadOfDepartment));
+        menuActions.put(1,
                 () -> departmentService.getAllDepartments().forEach(department -> log.info("{}", department.getName())));
         menuActions.put(3, () -> readDepartmentNameAndPerform(getDepartmentStatistic));
         menuActions.put(4, () -> readDepartmentNameAndPerform(getDepartmentAverageSalary));
