@@ -8,7 +8,6 @@ import com.entities.Degree;
 import com.entities.Department;
 import com.entities.Lector;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
@@ -16,11 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class JPATest {
-    protected static SessionFactory sessionFactory = new Configuration()
+    private Session session = new Configuration()
             .configure()
-            .buildSessionFactory();
+            .buildSessionFactory()
+            .openSession();
 
-    private Session session = sessionFactory.openSession();
+
     protected DepartmentDAO departmentDAO = new DepartmentDAOImpl(session);
 
     protected LectorDAO lectorDAO = new LectorDAOImpl(session);
@@ -62,7 +62,7 @@ public abstract class JPATest {
     }
 
     protected List<Department> setUpTestDepartments() {
-        List<Lector> lectors = setUpTestLectors();
+        List<Lector> lectors = EntityUtils.getLectorList();
 
         List<Department> departments = new ArrayList<>(
                 Arrays.asList(

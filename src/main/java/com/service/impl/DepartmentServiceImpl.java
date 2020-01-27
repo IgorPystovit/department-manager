@@ -7,6 +7,7 @@ import com.entities.Lector;
 import com.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -77,6 +78,11 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .mapToDouble(Lector::getSalary)
                 .average()
                 .getAsDouble();
+    }
+
+    @Override
+    public List<Department> getAllDepartments() {
+        return departmentDAO.findAll();
     }
 
     private void checkIfDepartmentExistsById(Integer id) {

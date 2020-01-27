@@ -82,4 +82,11 @@ public class DepartmentServiceImplTest {
         assertEquals(
                 477.14, departmentService.getDepartmentAverageSalary(EntityUtils.getDepartment()), 0.01);
     }
+
+    @Test
+    public void getAllDepartments_test() {
+        when(departmentDAO.findAll()).thenReturn(EntityUtils.getDepartments());
+        List<Department> departments = departmentService.getAllDepartments();
+        assertFalse(departments.isEmpty());
+    }
 }

@@ -6,6 +6,7 @@ import com.entities.Lector;
 import com.service.LectorService;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -64,5 +65,25 @@ public class LectorServiceImplTest {
 
         assertTrue(optionalLectorByName.isPresent());
         assertEquals(lectors.get(0), optionalLectorByName.get());
+    }
+
+    @Test
+    public void getAllLectors_test() {
+        when(lectorDAO.findAll()).thenReturn(EntityUtils.getLectorList());
+
+        List<Lector> lectors = lectorService.getAllLectors();
+        assertFalse(lectors.isEmpty());
+    }
+
+    @Test
+    public void getAllLectorsByNameTemplate_test() {
+        when(lectorDAO.findAll()).thenReturn(EntityUtils.getLectorList());
+
+        List<Lector> lectorsByNameTemplate = lectorService.getAllLectorsByNameTemplate("lie");
+        assertEquals(2, lectorsByNameTemplate.size());
+        assertTrue(lectorsByNameTemplate
+                .stream()
+                .map(Lector::getName)
+                .allMatch(name -> Arrays.asList("Willie Russell", "Willie Lyons").contains(name)));
     }
 }

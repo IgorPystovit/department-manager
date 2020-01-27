@@ -88,6 +88,16 @@ public class DepartmentServiceImplIntegrationTest extends JPATest {
         assertEquals(savedDepartments.get(0), optionalDepartment.get());
     }
 
+    @Test
+    public void getAllDepartments_test() {
+        List<Department> savedDepartments = setUpTestDepartments();
+
+        List<Department> departments = departmentService.getAllDepartments();
+
+        assertFalse(departments.isEmpty());
+        assertEquals(savedDepartments.size(), departments.size());
+    }
+
     @AfterEach
     public void tearDown() {
         departmentDAO.deleteAll();

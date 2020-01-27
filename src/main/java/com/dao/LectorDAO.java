@@ -16,6 +16,5 @@ public interface LectorDAO {
 
     List<Lector> findAll();
 
-
     void deleteAll();
 }

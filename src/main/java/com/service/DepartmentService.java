@@ -3,6 +3,7 @@ package com.service;
 import com.entities.Department;
 import com.service.impl.DepartmentStatistic;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface DepartmentService {
@@ -17,4 +18,6 @@ public interface DepartmentService {
     DepartmentStatistic getDepartmentStatistic(Department department);
 
     double getDepartmentAverageSalary(Department department);
+
+    List<Department> getAllDepartments();
 }

@@ -2,6 +2,7 @@ package com.service;
 
 import com.entities.Lector;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface LectorService {
@@ -13,4 +14,7 @@ public interface LectorService {
 
     Optional<Lector> getLectorByName(String lectorName);
 
+    List<Lector> getAllLectors();
+
+    List<Lector> getAllLectorsByNameTemplate(String template);
 }

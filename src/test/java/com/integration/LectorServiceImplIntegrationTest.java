@@ -8,6 +8,7 @@ import com.service.impl.LectorServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -88,6 +89,30 @@ public class LectorServiceImplIntegrationTest extends JPATest {
 
         assertTrue(optionalLectorByName.isPresent());
         assertEquals(savedLectors.get(0), optionalLectorByName.get());
+    }
+
+    @Test
+    public void getAllLectors() {
+        List<Lector> savedLectors = setUpTestLectors();
+
+        List<Lector> lectors = lectorService.getAllLectors();
+
+        assertFalse(lectors.isEmpty());
+        assertEquals(savedLectors.size(), lectors.size());
+    }
+
+    @Test
+    public void getAllLectorsByNameTemplate() {
+        setUpTestLectors();
+
+        List<Lector> lectorsByNameTemplate = lectorService.getAllLectorsByNameTemplate("lie");
+
+        assertEquals(2, lectorsByNameTemplate.size());
+        assertTrue(lectorsByNameTemplate
+                .stream()
+                .map(Lector::getName)
+                .allMatch(name -> Arrays.asList("Willie Russell", "Willie Lyons").contains(name)));
+
     }
 
     @AfterEach
